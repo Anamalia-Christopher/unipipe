@@ -20,6 +20,7 @@
     "express": "^4.16.4",
     "express-session": "^1.16.1",
     "html": "^1.0.0",
+    "libgen": "^1.0.0",
     "mailgun": "^0.5.0",
     "method-override": "^3.0.0",
     "morgan": "^1.9.1",

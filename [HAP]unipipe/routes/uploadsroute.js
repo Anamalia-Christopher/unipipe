@@ -5,7 +5,7 @@ const mysql = require('mysql')
 
 var router = express.Router()
 
-var mutableFileLink 
+var mutableFileLink = 'undefined'
 
 
 var storage = multer.diskStorage({
@@ -14,6 +14,7 @@ var storage = multer.diskStorage({
 		cb(null, './tmp/uploads')
 	},
 	filename: (req, file, cb)=>{
+		console.log("going")
 		tempFileLink = `${file.fieldname}-${Date.now()}${file.originalname.substring(file.originalname.indexOf("."), (file.originalname.length))}`
 		mutableFileLink = path.join(__dirname, tempFileLink)
 		cb(null, tempFileLink)
@@ -23,12 +24,12 @@ var storage = multer.diskStorage({
 var mul = multer({
 	storage: storage, 
 	fileFilter: (req, file, callback)=>{
-	    // var ext = path.extname(file.originalname);
-	    // console.log(ext)
+	    var ext = path.extname(file.originalname);
+	    console.log(ext)
 	    // if((ext != '.png' || ext != '.PNG') && (ext != '.jpg' || ext != '.JPG') && (ext != '.doc' ||  ex != '.DOC') && (ext != '.jpeg' || ext != '.JPEG')&& (ext != '.pow' | ext != '.POW') && (ext != '.xlsx' || ext != '.XLSX')) {
 	    //     return callback(new Error('Only images are allowed'))
 	    // }
-	    callback(null, true)
+	    // callback(null, true)
 	}
 })
 
@@ -48,39 +49,25 @@ router.use((req, res, next)=>{
 })
 
 
-router.get('/', (req, res)=>{
 
-	res.render('uploads.html')
+router.post('/file', mul.single('avatar'), (req, res)=>{
 
-	res.end()
+		if(mutableFileLink == 'undefined')
+			mutableFileLink = 'No image available'
 
-})
+		var {title,description,search_keys,username} = req.body
 
-
-router.post('/', mul.single('avatar'), (req, res)=>{
-
-	//save file details to database
-	if(mutableFileLink){
-
-		var {title,description,search_keys} = req.body
-
-		var query = `INSERT INTO uploads(title, description, search_keys, item_link) VALUES ("${title}","${description}","${search_keys}","${mutableFileLink}")`
+		var query = `INSERT INTO uploads(title, description, search_keys, item_link, uploaded_by) VALUES ("${title}","${description}","${search_keys}","${mutableFileLink}","${username}")`
 
 		con.query(query, null, (err, res)=>{
 			if(err)
 				console.log(err)
 		})
 
-		res.json({
-			status: 'success',
-			message: 'File upload success'
-		})
-	} else{
-		res.json({
-			status: 'error',
-			message: 'No file selected'
-		})
-	}
+
+		res.redirect('/?user_id=' + username)
+		res.end()
+	
 })
 
 

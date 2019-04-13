@@ -27,9 +27,7 @@
 					   
 						<ul class="nav hidden-xs" id="lg-menu">
 							<li class="active"><a href="#featured" id="userprofile"><i class="glyphicon glyphicon-list-alt"></i> Profile</a></li>
-							<li><a href="#stories"><i class="glyphicon glyphicon-plane"></i> Engineering </a></li>
-							<li><a href="#"><i class="glyphicon glyphicon-cloud-upload"></i> Computer Science</a></li>
-							<li><a href="#"><i class="glyphicon glyphicon-credit-card"></i> Business</a></li>
+							
 							<li><a href="#"><i class="glyphicon glyphicon-pencil"></i> Projects and Research</a></li>
 						</ul>
 						<ul class="list-unstyled hidden-xs" id="sidebar-footer">
@@ -170,105 +168,61 @@
 								  <!-- main col right -->
 								  <div class="col-sm-9" id="posts">
 									   
-										
+											<% for(var i = 0; i < user_post.length; ++i) {%>
 									   <div class="panel panel-default">
-										 <div class="panel-heading"><a href="#" class="pull-right">Andwrew Kangah-KNUST</a> <h4>Deep Learning</h4></div>
+										 <div class="panel-heading"><a href="#" class="pull-right"><%= user_post[i].username %> - <%= user_post[i].BELONGS_TO_UNI %></a> <h4> <%= user_post[i].title %></h4></div>
 										  <div class="panel-body">
-											<p>It runs on an artificial neural network.It needs huge amounts of resources.Deep learning is a part of machine learning.
-												Deep learning makes popular forms of AI potential.
-												Deep learning can be supervised or unsupervised.
-												Deep learning has a lot of layers as the name suggests.</p>
+											<p><%= user_post[i].description %></p>
+
 											<div class="clearfix"></div>
 											<hr>
+											<!-- <img src="<%= user_post[i].item_link%>" style="width: 100%; height: 250px"/> -->
 											
 											<h5>Comments</h5>
 											<div style="font-size: 10px;">
+											<hr>	
+												
+												
+												<% for(var j = 0; j < comments.length; ++j) {%>
+												 
+													<% if (user_post[i].id == comments[j].comment_on) {%>
+														<p>	<code><%= comments[j].comment_by %></code> <%= comments[j].comment_text %></p>
+														<% } %>
+														<% } %>
 											<hr>
-														<p>	<code>Christopher-Ashesi Universiy</code>Design, build, test, and prototype 
-														using Bootstrap in real-time from your Web browser. Bootply combines the
-														power of hand-coded HTML, CSS and JavaScript with the benefits of 
-														responsive design using Bootstrap. Find and showcase Bootstrap-ready 
-														snippets in the 100% free Bootply.com code repository.</p>
-
-											<hr>
-														<p><code>Charlotte - University of Ghana </code>	This is great. Good work</p>
+												
 											</div>
 											<hr>
-											<form>
+											<form method="POST" action="./comment">
 											<div class="input-group">
 											  <div class="input-group-btn">
-											  <button class="btn btn-default">+1</button><button class="btn btn-default"><i class="glyphicon glyphicon-share"></i></button>
+											  <button type="submit" class="btn btn-default">+1</button><button class="btn btn-default"><i class="glyphicon glyphicon-share"></i></button>
 											  </div>
-											  <input class="form-control" placeholder="Add a comment.." type="text">
+				
+											  <input type="hidden" name="username" value="<%= user_post[i].username%>">
+											  <input type="hidden" name="comment_on" value="<%= user_post[i].id%>">
+											  <input class="form-control" name="comment_text" placeholder="Add a comment.." type="text">
+											  <br />
+											  <!-- <input type="submit" value="Send" /> -->
 											</div>
 											</form>
 											
 										  </div>
 									   </div>
-									
-									   <div class="panel panel-default">
-										 <div class="panel-heading"><a href="#" class="pull-right">View all</a> <h4>Stackoverflow</h4></div>
-										  <div class="panel-body">
-											<img src="assets/img/150x150.gif" class="img-circle pull-right"> <a href="#">Keyword: Bootstrap</a>
-											<div class="clearfix"></div>
-											<hr>
-											
-											<p>If you're looking for help with Bootstrap code, the <code>twitter-bootstrap</code> tag at <a href="http://stackoverflow.com/questions/tagged/twitter-bootstrap">Stackoverflow</a> is a good place to find answers.</p>
-											
-											<hr>
-											<form>
-											<div class="input-group">
-											  <div class="input-group-btn">
-											  <button class="btn btn-default">+1</button><button class="btn btn-default"><i class="glyphicon glyphicon-share"></i></button>
-											  </div>
-											  <input class="form-control" placeholder="Add a comment.." type="text">
-											</div>
-											</form>
-											
-										  </div>
-									   </div>
-
-									   <div class="panel panel-default">
-										 <div class="panel-heading"><a href="#" class="pull-right">View all</a> <h4>Portlet Heading</h4></div>
-										  <div class="panel-body">
-											<ul class="list-group">
-											<li class="list-group-item">Modals</li>
-											<li class="list-group-item">Sliders / Carousel</li>
-											<li class="list-group-item">Thumbnails</li>
-											</ul>
-										  </div>
-									   </div>
-									
-									   <div class="panel panel-default">
-										<div class="panel-thumbnail"><img src="assets/img/bg_4.jpg" class="img-responsive"></div>
-										<div class="panel-body">
-										  <p class="lead">Social Good</p>
-										  <p>1,200 Followers, 83 Posts</p>
-										  
-										  <p>
-											<img src="assets/img/photo.jpg" height="28px" width="28px">
-											<img src="assets/img/photo.png" height="28px" width="28px">
-											<img src="assets/img/photo_002.jpg" height="28px" width="28px">
-										  </p>
-										</div>
-									  </div>
+									   
+										 <% } %>
 									
 								  </div>
 							   </div><!--/row-->
 							  
-								<div class="row">
-								  <div class="col-sm-6">
-									<a href="#">Twitter</a> <small class="text-muted">|</small> <a href="#">Facebook</a> <small class="text-muted">|</small> <a href="#">Google+</a>
-								  </div>
-								</div>
-							  
+								
 								<div class="row" id="footer">    
 								  <div class="col-sm-6">
 									
 								  </div>
 								  <div class="col-sm-6">
 									<p>
-									<a href="#" class="pull-right">�Copyright 2013</a>
+									<a href="#" class="pull-right">Copyright 2019</a>
 									</p>
 								  </div>
 								</div>
@@ -276,7 +230,7 @@
 							  <hr>
 							  
 							  <h4 class="text-center">
-							  <a href="http://usebootstrap.com/theme/facebook" target="ext">Download this Template @Bootply</a>
+							  <a href="http://usebootstrap.com/theme/facebook" target="ext">Matrix</a>
 							  </h4>
 								
 							  <hr>
@@ -298,18 +252,71 @@
 		  <div class="modal-content">
 			  <div class="modal-header">
 				  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">�</button>
-					Update Status
+					Post what's on your mind
 			  </div>
-			  <div class="modal-body">
-				  <form class="form center-block">
-					<div class="form-group">
-					  <textarea class="form-control input-lg" autofocus="" placeholder="What do you want to share?"></textarea>
+			<div class="modal-body">
+
+
+
+				<form action="./upload/file" method="POST">
+						<input type="hidden"   name="username" value="<%= top_username%>">
+								</div>
+
+								<!-- <input type="text" autofocus=""  name="title" placeholder="title of post"> -->
+								<input type="text" autofocus="" name="title" class="form-control input-lg" placeholder="title of post">
+								</div>
+								
+								<br>
+
+						<!-- <input type="text"name="description" placeholder="Description of the post?" /> -->
+						<textarea class="form-control input-lg" name="description" placeholder="Description of the post?"></textarea>
+							<br>
+				
+
+					  <!-- <input type="text" name="search_keys" placeholder="Search Keywords for this post?" /> -->
+					   <textarea name="search_keys" class="form-control input-lg" placeholder="Search Keywords for this post?"></textarea>
+
+					   <input type="file" name="avatar" enctype="multipart/form-data" />
 					</div>
-				  </form>
+					<input type="submit"  value="Post" />
+
+				</form>
+
+
+
+
+
+
+
+
+
+<!-- 				  <form class="form center-block" action="./upload/file" method="POST">
+							<div class="form-group">
+							
+							<input type="text" autofocus="" class="form-control input-lg" name="title" placeholder="title of post">
+								</div>
+								<br>
+								<hr>
+						<div class="form-group">
+
+								<textarea class="form-control input-lg" name="description" placeholder="Description of the post?"></textarea>
+							</div>
+							<br>
+							<hr>
+					<div class="form-group">
+
+					  <textarea class="form-control input-lg" name="search_keys" placeholder="Search Keywords for this post?"></textarea>
+					</div>
+					<input type="submit" class="btn btn-primary btn-sm" data-dismiss="modal" aria-hidden="true" value="Post" />
+				  </form>	 -->
+
+
+
+
 			  </div>
 			  <div class="modal-footer">
 				  <div>
-				  <button class="btn btn-primary btn-sm" data-dismiss="modal" aria-hidden="true">Post</button>
+				  
 					<ul class="pull-left list-inline"><li><a href=""><i class="glyphicon glyphicon-upload"></i></a></li><li><a href=""><i class="glyphicon glyphicon-camera"></i></a></li><li><a href=""><i class="glyphicon glyphicon-map-marker"></i></a></li></ul>
 				  </div>	
 			  </div>

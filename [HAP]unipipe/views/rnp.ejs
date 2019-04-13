@@ -32,7 +32,7 @@
 						</ul>
 						<ul class="list-unstyled hidden-xs" id="sidebar-footer">
 							<li>
-							  <a href="http://usebootstrap.com/theme/facebook"><h3>Bootstrap</h3> <i class="glyphicon glyphicon-heart-empty"></i> Bootply</a>
+							  <a href=""><h3>Unipipe</h3> <i class="glyphicon glyphicon-heart-empty"></i> Matrix</a>
 							</li>
 						</ul>
 					  
@@ -77,9 +77,7 @@
 							  <li>
 								<a href="#postModal" role="button" data-toggle="modal"><i class="glyphicon glyphicon-plus"></i> Post</a>
 							  </li>
-							  <li>
-								<a href="#"><span class="badge">badge</span></a>
-							  </li>
+							  
 							</ul>
 							<ul class="nav navbar-nav navbar-right">
 							  <li class="dropdown">
@@ -168,69 +166,65 @@
 								  <!-- main col right -->
 								  <div class="col-sm-9" id="posts">
 									   
-										
-									   <div class="panel panel-default">
-										 <div class="panel-heading"><a href="#" class="pull-right">Andwrew Kangah-KNUST</a> <h4>Deep Learning</h4></div>
-										  <div class="panel-body">
-											<p>It runs on an artificial neural network.It needs huge amounts of resources.Deep learning is a part of machine learning.
-												Deep learning makes popular forms of AI potential.
-												Deep learning can be supervised or unsupervised.
-												Deep learning has a lot of layers as the name suggests.
-												<p>
-													Link to this research: <a href="" style="color:brown">Deep Learning(Andwrew Kangah)</a>
-												</p>
+											<% for(var i = 0; i < user_post.length; ++i) {%>
+												<% if (user_post[i].type === 'research') { %>
+												<div class="panel panel-default">
+														<div class="panel-heading"><a href="#" class="pull-right"><%= user_post[i].username %> - <%= user_post[i].school %></a> <h4> <%= user_post[i].title %></h4></div>
+														 <div class="panel-body">
+														 <p>
+																<%= user_post[i][message] %>
+															 <p>
+																 Link to this research: <a href="" style="color:brown"> <%=user_post[i].title%> ( <%= user_post[i].username %> )</a>
+															 </p>
+														 
+														 </p>
+														 <div class="clearfix"></div>
+														 <hr>
+														 
+														 <h5>Comments</h5>
+														 <div style="font-size: 10px;">
+														 <hr>
+																	 <p>	<code> <%= user_post[i].reply_user %> - <%= user_post[i].reply_school %></code> <%= user_post[i].comment %></p>
+														 </div>
+														 <hr>
+														 <form>
+														 <div class="input-group">
+															 <div class="input-group-btn">
+															 <button class="btn btn-default">+1</button><button class="btn btn-default"><i class="glyphicon glyphicon-share"></i></button>
+															 </div>
+															 <input class="form-control" placeholder="Add a comment.." type="text">
+														 </div>
+														 </form>
+														 
+														 </div>
+														</div>
+												 
 											
-											</p>
-											<div class="clearfix"></div>
-											<hr>
-											
-											<h5>Comments</h5>
-											<div style="font-size: 10px;">
-											<hr>
-														<p>	<code>Christopher-Ashesi Universiy</code>Design, build, test, and prototype 
-														using Bootstrap in real-time from your Web browser. Bootply combines the
-														power of hand-coded HTML, CSS and JavaScript with the benefits of 
-														responsive design using Bootstrap. Find and showcase Bootstrap-ready 
-														snippets in the 100% free Bootply.com code repository.</p>
-
-											<hr>
-														<p><code>Charlotte - University of Ghana </code>	This is great. Good work</p>
-											</div>
-											<hr>
-											<form>
-											<div class="input-group">
-											  <div class="input-group-btn">
-											  <button class="btn btn-default">+1</button><button class="btn btn-default"><i class="glyphicon glyphicon-share"></i></button>
-											  </div>
-											  <input class="form-control" placeholder="Add a comment.." type="text">
-											</div>
-											</form>
-											
-										  </div>
-									   </div>
+												<% } else { %>
+									  
 									
 									   <div class="panel panel-default">
-										 <div class="panel-heading"><a href="#" class="pull-right">View all</a> <h4>Project Fires</h4></div>
+										 <div class="panel-heading"><a href="#" class="pull-right"><%= user_post[i].username %> - <%= user_post[i].school %></a> <h4><%= user_post[i].project_name %></h4></div>
 										  <div class="panel-body">
-											<img src="assets/img/150x150.gif" class="img-circle pull-right"> <a href="#">Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem autem velit perferendis 
-												tempore maxime, pariatur labore alias iste doloribus nihil qui placeat nulla aperiam soluta nobis veniam similique eaque necessitatibus.</a>
+											<img src="assets/img/150x150.gif" class="img-circle pull-right"> <p><%= user_post[i].description %></p>
 											<div class="clearfix"></div>
 											<hr>
-											<p>Connect with Andrew on Facebook if you wish to work on this project: <code>Andrew Kangah </code></p>
+											<p>Connect with  <a href=""> <code><%= user_post[i].username %></code>  </a>on Facebook if you wish to work on this project.  </p>
 											
 											<hr>
 										
 											
 										  </div>
 									   </div>
-
+										 <% } %>
+										 <% } %>
 									   <div class="panel panel-default">
-										 <div class="panel-heading"><a href="#" class="pull-right">View all</a> <h4>Portlet Heading</h4></div>
+										 <div class="panel-heading"><h4>Popular Research and Projects</h4></div>
 										  <div class="panel-body">
 											<ul class="list-group">
-											<li class="list-group-item">Modals</li>
-											<li class="list-group-item">Sliders / Carousel</li>
-											<li class="list-group-item">Thumbnails</li>
+													<% for(var i = 0; i < popular.length; ++i) {%>
+														<li class="list-group-item"> <%=popular[i]%> <% } %> </li>
+														<% } %>
 											</ul>
 										  </div>
 									   </div>
@@ -248,7 +242,7 @@
 								  </div>
 								  <div class="col-sm-6">
 									<p>
-									<a href="#" class="pull-right">Copyright 2013</a>
+									<a href="#" class="pull-right">Copyright 2019</a>
 									</p>
 								  </div>
 								</div>

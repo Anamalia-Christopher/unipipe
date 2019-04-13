@@ -8,10 +8,12 @@ const favicon = require('serve-favicon')
 const session = require('express-session')
 const http = require('http')
 const methodOverride = require('method-override')
-const mailgun = require('mailgun')
+const mysql = require('mysql')
+const libgen = require('libgen');
 
 const uploadsRoute = require('./routes/uploadsroute')
-const loaduploadsRoute = require('./routes/loaduploadsroute')
+const commentRoute = require('./routes/commentsroute')
+const likesRoute = require('./routes/likesroute')
 const loginRoute = require('./routes/loginroute')
 const signupRoute = require('./routes/signuproute')
 
@@ -37,7 +39,8 @@ app.use(express.static(path.join(__dirname, 'public')))
 app.use('/login', loginRoute)
 app.use('/signup', signupRoute)
 app.use('/upload', uploadsRoute)
-app.use('/loaduploads', loaduploadsRoute)
+app.use('/comment', commentRoute)
+app.use('/likes', likesRoute)
 
 
 if (app.get('env' === 'development')){
@@ -46,8 +49,57 @@ if (app.get('env' === 'development')){
 
 
 
+var con = mysql.createConnection({
+		host: 'localhost',
+		user: 'root',
+		password: 'mysqladmin',
+		database: 'unipipe'
+	})
+
+
+
+
+app.get('/search', (req, res)=>{
+
+const options = {
+  mirror: 'http://gen.lib.rus.ec',
+  query: 'philosophy of religion',
+  count: 5
+};
+
+libgen.search(options, (err, data) => {
+  if (err)
+    return console.error(err);
+  console.log(data)
+  
+
+  render('search', {data:data})
+})
+  
+});
+
 app.get('/', (req, res)=>{
-	res.render('rnp.ejs')
+
+
+
+var query = `SELECT * FROM UPLOADS INNER JOIN UNIPIPEUSERS ON UPLOADS.UPLOADED_BY = UNIPIPEUSERS.USERNAME  WHERE UNIPIPEUSERS.USERNAME = "${req.query.user_id}";`
+
+con.query(query, null, (err, resSet)=>{
+
+	var query2 = `SELECT * FROM COMMENTS INNER JOIN UNIPIPEUSERS ON COMMENTS.COMMENT_BY = UNIPIPEUSERS.USERNAME`
+
+	con.query(query2, null, (err, resSet1)=>{
+
+
+		res.render('index', {
+			user_post: resSet,
+			comments: resSet1,
+			top_username: req.query.user_id
+		})
+
+
+	})
+})
 })
 
 

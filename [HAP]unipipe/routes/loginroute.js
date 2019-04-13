@@ -22,12 +22,11 @@ router.post('/', (req, res)=>{
 
 	var {username, password} = req.body
 
-	var query = `SELECT * FROM unipipeusers WHERE username LIKE ${username} AND password LIKE ${password}`
+	var query = `SELECT * FROM unipipeusers WHERE username LIKE "${username}"`
 
-	con.query(query, null, (err, res)=>{
-		console.log(res)
+	con.query(query, null, (err, resSet)=>{
 
-		//res.redirect(`/?user_id=${}`);
+		res.redirect(`/?user_id=${resSet[0].username}`);
 
 	})
 
