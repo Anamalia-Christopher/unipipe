@@ -167,13 +167,14 @@
 								  <div class="col-sm-9" id="posts">
 									   
 											<% for(var i = 0; i < user_post.length; ++i) {%>
+												<% if (user_post[i].type === 'research') { %>
 												<div class="panel panel-default">
-														<div class="panel-heading"><a href="#" class="pull-right"><%= user_post[i][username] %> - <%= user_post[i][school] %></a> <h4> <%= user_post[i][title] %></h4></div>
+														<div class="panel-heading"><a href="#" class="pull-right"><%= user_post[i].username %> - <%= user_post[i].school %></a> <h4> <%= user_post[i].title %></h4></div>
 														 <div class="panel-body">
 														 <p>
 																<%= user_post[i][message] %>
 															 <p>
-																 Link to this research: <a href="" style="color:brown"> <%=user_post[i][title]%> ( <%= user_post[i][username] %> )</a>
+																 Link to this research: <a href="" style="color:brown"> <%=user_post[i].title%> ( <%= user_post[i].username %> )</a>
 															 </p>
 														 
 														 </p>
@@ -183,7 +184,7 @@
 														 <h5>Comments</h5>
 														 <div style="font-size: 10px;">
 														 <hr>
-																	 <p>	<code> <%= user_post[i][reply_user] %>-<%= user_post[i][reply_school] %></code> <%= user_post[i][comment] %></p>
+																	 <p>	<code> <%= user_post[i].reply_user %>-<%= user_post[i].reply_school %></code> <%= user_post[i].comment %></p>
 														 </div>
 														 <hr>
 														 <form>
@@ -199,30 +200,31 @@
 														</div>
 												 
 											
-														<% } %>
+												<% } else { %>
 									  
 									
 									   <div class="panel panel-default">
-										 <div class="panel-heading"><a href="#" class="pull-right"><%= user_post[i][username] %> - <%= user_post[i][school] %></a> <h4><%= user_post[i][project_name] %></h4></div>
+										 <div class="panel-heading"><a href="#" class="pull-right"><%= user_post[i].username %> - <%= user_post[i].school %></a> <h4><%= user_post[i].project_name %></h4></div>
 										  <div class="panel-body">
-											<img src="assets/img/150x150.gif" class="img-circle pull-right"> <p><%= user_post[i][description] %></p>
+											<img src="assets/img/150x150.gif" class="img-circle pull-right"> <p><%= user_post[i].description %></p>
 											<div class="clearfix"></div>
 											<hr>
-											<p>Connect with  <a href=""> <code><%= user_post[i][username] %></code>  </a>on Facebook if you wish to work on this project.  </p>
+											<p>Connect with  <a href=""> <code><%= user_post[i].username %></code>  </a>on Facebook if you wish to work on this project.  </p>
 											
 											<hr>
 										
 											
 										  </div>
 									   </div>
-
+										 <% } %>
+										 <% } %>
 									   <div class="panel panel-default">
 										 <div class="panel-heading"><h4>Popular Research and Projects</h4></div>
 										  <div class="panel-body">
 											<ul class="list-group">
 													<% for(var i = 0; i < popular.length; ++i) {%>
 														<li class="list-group-item"> <%=popular[i]%> <% } %> </li>
-										
+														<% } %>
 											</ul>
 										  </div>
 									   </div>
