@@ -1,0 +1,31 @@
+{
+  "name": "manlikeata",
+  "version": "1.0.0",
+  "description": "a test of nodejs setup with express 4",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "test"
+  ],
+  "author": "manlikeata",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "consolidate": "^0.15.1",
+    "ejs": "^2.6.1",
+    "error-handler": "^1.0.0",
+    "errorhandler": "^1.5.0",
+    "express": "^4.16.4",
+    "express-session": "^1.16.1",
+    "html": "^1.0.0",
+    "mailgun": "^0.5.0",
+    "method-override": "^3.0.0",
+    "morgan": "^1.9.1",
+    "multer": "^1.4.1",
+    "mysql": "^2.16.0",
+    "serve-favicon": "^2.5.0",
+    "swig": "^1.4.2"
+  }
+}
