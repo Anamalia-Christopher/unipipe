@@ -73,7 +73,7 @@ hr {
 
 .navbar-blue {
     border-width:0;
-	background-color:#3B5999;
+	background-color:rgb(2, 9, 25);
     color:#ffffff;
     font-family:arial,sans-serif;
     top:0;
@@ -248,7 +248,7 @@ small.text-muted {
   }
 
   .navbar-blue {
-	background-color:#3B5999;
+	background-color:rgb(2, 9, 25);
     top:0;
     width:100%;
     position:relative;
