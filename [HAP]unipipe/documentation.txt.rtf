@@ -11,6 +11,7 @@ use unripe;\
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
 
 \f1\fs22 \cf2 \cb3 \CocoaLigature0 create table universities(name varchar(100) primary key, location varchar(100));\
+\'97\
 create table unipipeusers(username varchar(15) primary key, full_name varchar(40) not null, fb_profile_link varchar(100), belongs_to_uni varchar(100) not null, date_added timestamp default now(), foreign key(belongs_to_uni) references universities(name));\
 \'97\'97\
 create table uploads(id serial primary key, title varchar(40) not null, description varchar(100) not null, search_key varchar(100), varchar(100), item_link text, date_added timestamp default now());\

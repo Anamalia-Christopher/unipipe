@@ -12,14 +12,16 @@ const mailgun = require('mailgun')
 
 const uploadsRoute = require('./routes/uploadsroute')
 const loaduploadsRoute = require('./routes/loaduploadsroute')
+const loginRoute = require('./routes/loginroute')
+const signupRoute = require('./routes/signuproute')
 
 
 
 var app = express()
 
 app.set('port', 8000)
-app.set('view engine', 'html')
-app.engine('html',ejs.renderFile)
+app.set('view engine', 'ejs')
+app.engine('ejs',ejs.renderFile)
 app.use(favicon(path.join(__dirname, 'public/favicon.ico')))
 app.use(logger('dev'))
 app.use(session({
@@ -32,7 +34,8 @@ app.use(bodyParser.urlencoded({extended: true}))
 app.use(methodOverride())
 app.use(express.static(path.join(__dirname, 'public')))
 
-
+app.use('/login', loginRoute)
+app.use('/signup', signupRoute)
 app.use('/upload', uploadsRoute)
 app.use('/loaduploads', loaduploadsRoute)
 
@@ -44,7 +47,7 @@ if (app.get('env' === 'development')){
 
 
 app.get('/', (req, res)=>{
-	res.render('index.html')
+	res.render('rnp.ejs')
 })
 
 
